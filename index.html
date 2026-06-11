@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Algebratex | Algebraik Ifodalar Geometriyasi</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-glow: rgba(59, 130, 246, 0.2);
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --danger: #ef4444;
+            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+            --inner-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+            --glass-blur: blur(16px);
+            --sidebar-bg: rgba(255, 255, 255, 0.4);
+            --table-header: #f8fafc;
+            --table-row-hover: rgba(59, 130, 246, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --primary-glow: rgba(59, 130, 246, 0.4);
+            --accent: #34d399;
+            --accent-hover: #6ee7b7;
+            --danger: #f87171;
+            --shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.5);
+            --inner-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
+            --sidebar-bg: rgba(15, 23, 42, 0.5);
+            --table-header: rgba(15, 23, 42, 0.8);
+            --table-row-hover: rgba(59, 130, 246, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto 24px auto;
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+            background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .brand-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            background: var(--sidebar-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .lang-switch {
+            background: var(--sidebar-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .lang-switch:hover {
+            border-color: var(--primary);
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 24px;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            flex-grow: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 12px;
+            }
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .visual-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 12px;
+        }
+
+        .card-title i {
+            color: var(--primary);
+        }
+
+        .expression-input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            background: var(--sidebar-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            color: var(--text-primary);
+            outline: none;
+        }
+
+        .expression-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-glow);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-hover) 0%, #1e40af 100%);
+            transform: translateY(-2px);
+        }
+
+        .templates-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .template-chip {
+            background: var(--sidebar-bg);
+            border: 1px solid var(--card-border);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .template-chip:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .template-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .variables-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .variable-row {
+            background: var(--sidebar-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .variable-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .variable-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .color-indicator {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+
+        .color-picker-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .color-input {
+            position: absolute;
+            opacity: 0;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .color-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 1px solid var(--card-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--card-border);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .visual-viewport {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            min-height: 480px;
+            background: radial-gradient(circle at 50% 50%, var(--card-border) 1px, transparent 1px);
+            background-size: 20px 20px;
+            border-radius: 16px;
+            cursor: grab;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .visual-viewport:active {
+            cursor: grabbing;
+        }
+
+        #svg-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .formula-display {
+            padding: 16px;
+            background: var(--sidebar-bg);
+            border-radius: 16px;
+            text-align: center;
+            overflow-x: auto;
+        }
+
+        .formula-modes {
+            display: flex;
+            gap: 8px;
+        }
+
+        .mode-btn {
+            background: none;
+            border: 1px solid var(--card-border);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .mode-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 250px;
+            border-radius: 14px;
+            border: 1px solid var(--card-border);
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .details-table th,
+        .details-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--card-border);
+            text-align: left;
+        }
+
+        .details-table th {
+            background: var(--table-header);
+            font-weight: 700;
+        }
+
+        .details-table tbody tr {
+            cursor: pointer;
+        }
+
+        .details-table tbody tr:hover,
+        .details-table tbody tr.highlighted {
+            background: var(--table-row-hover);
+        }
+
+        .block-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .error-banner {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1.5px dashed var(--danger);
+            color: var(--danger);
+            padding: 14px;
+            border-radius: 16px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        svg polygon,
+        svg rect {
+            transition: fill 0.3s ease, stroke-width 0.2s;
+            cursor: pointer;
+        }
+
+        .svg-highlight {
+            stroke: var(--primary) !important;
+            stroke-width: 2px !important;
+            filter: drop-shadow(0px 0px 4px var(--primary));
+        }
+
+        .svg-muted {
+            opacity: 0.25;
+        }
+
+        .badge-auto-rotate {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            display: none;
+        }
+
+        .badge-auto-rotate.active {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="brand">
+            <div class="brand-logo"><i class="fa-solid fa-shapes"></i> <span id="txt-logo">Algebratex</span></div>
+            <div class="brand-subtitle" id="txt-subtitle">Algebra va Geometriya Sintezi</div>
+        </div>
+        <div class="header-controls">
+            <select id="lang-select" class="lang-switch">
+                <option value="uz">O'zbekcha</option>
+                <option value="en">English</option>
+            </select>
+            <button id="theme-toggle" class="icon-btn"><i class="fa-solid fa-moon"></i></button>
+        </div>
+    </header>
+
+    <main class="app-container">
+        <section class="sidebar">
+            <div class="glass-card">
+                <div class="card-title"><i class="fa-solid fa-keyboard"></i><span id="title-input">Ifodani
+                        kiritish</span></div>
+                <div class="input-box-wrapper" style="position: relative;">
+                    <i class="fa-solid fa-square-root-variable" style="position: absolute; left: 16px; top: 18px;"></i>
+                    <input type="text" id="expression" class="expression-input" placeholder="(a+b+c)^2">
+                </div>
+                <div id="error-msg" class="error-banner"><i class="fa-solid fa-triangle-exclamation"></i><span
+                        id="txt-error">Ifodani to'g'ri kiriting! Masalan: (a+b+c)^2 yoki (x+2y-z)^3</span></div>
+                <button id="calc-btn" class="btn-primary"><i class="fa-solid fa-calculator"></i><span
+                        id="btn-calc">Hisoblash & Vizualizatsiya</span></button>
+                <div>
+                    <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px;" id="txt-templates">Namunalar:
+                    </div>
+                    <div class="templates-list" id="templates-list"></div>
+                </div>
+            </div>
+
+            <div class="glass-card formula-card">
+                <div class="card-title" style="justify-content: space-between;">
+                    <div><i class="fa-solid fa-equals"></i><span id="title-formula"> Formula yoyilmasi</span></div>
+                    <div class="formula-modes"><button class="mode-btn active"
+                            id="btn-mode-simp">Soddalashgan</button><button class="mode-btn"
+                            id="btn-mode-det">Batafsil</button></div>
+                </div>
+                <div id="formula-display" class="formula-display"></div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-title"><i class="fa-solid fa-sliders"></i><span id="title-sliders">Hadlar o'lchamlarini
+                        sozlash</span></div>
+                <div class="variables-container" id="variables-list">
+                    <div style="color: var(--text-secondary); text-align: center; padding: 20px 0;" id="txt-no-vars">
+                        Ifoda kiritilgandan so'ng o'zgaruvchi slaydderlari bu yerda ko'rinadi.</div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-title"><i class="fa-solid fa-gear"></i><span id="title-settings">Kamera va Vizual
+                        sozlamalar</span></div>
+                <div class="variable-row" id="row-explode" style="display: none;">
+                    <div class="variable-info"><span><i class="fa-solid fa-arrows-up-down-left-right"></i> <span
+                                id="lbl-explode">Bloklar orasidagi masofa</span></span><span id="val-explode">0px</span>
+                    </div>
+                    <div class="slider-wrapper"><input type="range" id="control-explode" min="0" max="40" step="1"
+                            value="0"></div>
+                </div>
+                <div class="variable-row" id="row-rot-y" style="display: none;">
+                    <div class="variable-info"><span><i class="fa-solid fa-arrows-spin"></i> <span id="lbl-rot-y">Y-o'qi
+                                atrofida aylantirish</span></span><span id="val-rot-y">45°</span></div>
+                    <div class="slider-wrapper"><input type="range" id="control-rot-y" min="0" max="360" step="1"
+                            value="45"></div>
+                </div>
+                <div class="variable-row" id="row-tilt" style="display: none;">
+                    <div class="variable-info"><span><i class="fa-solid fa-chart-line"></i> <span
+                                id="lbl-tilt">Balandlik bo'yicha qiyshaytirish</span></span><span
+                            id="val-tilt">30°</span></div>
+                    <div class="slider-wrapper"><input type="range" id="control-tilt" min="0" max="85" step="1"
+                            value="30"></div>
+                </div>
+                <div class="variable-row">
+                    <div class="variable-info"><span><i class="fa-solid fa-magnifying-glass-plus"></i> <span
+                                id="lbl-zoom">Masshtab (Zoom)</span></span><span id="val-zoom">100%</span></div>
+                    <div class="slider-wrapper"><input type="range" id="control-zoom" min="40" max="200" step="5"
+                            value="100"></div>
+                </div>
+                <button id="reset-view-btn" class="icon-btn"
+                    style="width: auto; border-radius: 16px; padding: 8px 16px; gap: 8px;"><i
+                        class="fa-solid fa-arrows-to-dot"></i> <span id="reset-txt">Ko'rinishni tiklash</span></button>
+            </div>
+        </section>
+
+        <section class="visual-panel">
+            <div class="glass-card canvas-card">
+                <div class="canvas-toolbar" style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                    <div><i class="fa-solid fa-cube"></i> <span id="title-canvas">Geometrik model</span> <span
+                            id="auto-rotate-badge" class="badge-auto-rotate"><i class="fa-solid fa-sync fa-spin"></i>
+                            Auto-Rotate</span></div>
+                    <div><button id="btn-auto-rotate" class="icon-btn" style="display: none;"><i
+                                class="fa-solid fa-rotate"></i></button><button id="download-svg" class="icon-btn"><i
+                                class="fa-solid fa-download"></i></button></div>
+                </div>
+                <div class="visual-viewport" id="visual-viewport">
+                    <div id="svg-container"></div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-title"><i class="fa-solid fa-table-cells"></i><span id="title-details">Hadlar
+                        jadvali</span></div>
+                <div class="table-wrapper">
+                    <table class="details-table" id="details-table">
+                        <thead>
+                            <tr>
+                                <th id="th-color">Rang</th>
+                                <th id="th-term">Had</th>
+                                <th id="th-coeff">Koeffitsient</th>
+                                <th id="th-size">O'lcham</th>
+                            </tr>
+                        </thead>
+                        <tbody id="details-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Algebratex &copy; 2024 — Algebraik ifodalarni geometrik vizualizatsiya qilish</p>
+    </footer>
+
+    <script>
+        // ==================== GLOBAL STATE ====================
+        let currentTerms = [];
+        let currentParsedTerms = [];
+        let currentDegree = 2;
+        let currentVars = {};
+        let formulaMode = 'simple';
+        let autoRotate = false;
+        let autoRotateRAF = null;
+        let isDragging = false;
+        let dragStartX = 0, dragStartY = 0;
+        let dragStartRotY = 0, dragStartTilt = 0;
+
+        const VAR_COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316'];
+
+        // ==================== LANGUAGE DATA ====================
+        const LANG = {
+            uz: {
+                subtitle: "Algebra va Geometriya Sintezi",
+                titleInput: "Ifodani kiritish",
+                btnCalc: "Hisoblash & Vizualizatsiya",
+                txtTemplates: "Namunalar:",
+                titleFormula: " Formula yoyilmasi",
+                btnSimp: "Soddalashgan",
+                btnDet: "Batafsil",
+                titleSliders: "Hadlar o'lchamlarini sozlash",
+                noVars: "Ifoda kiritilgandan so'ng o'zgaruvchi slaydderlari bu yerda ko'rinadi.",
+                titleSettings: "Kamera va Vizual sozlamalar",
+                lblExplode: "Bloklar orasidagi masofa",
+                lblRotY: "Y-o'qi atrofida aylantirish",
+                lblTilt: "Balandlik bo'yicha qiyshaytirish",
+                lblZoom: "Masshtab (Zoom)",
+                resetTxt: "Ko'rinishni tiklash",
+                titleCanvas: "Geometrik model",
+                titleDetails: "Hadlar jadvali",
+                thColor: "Rang", thTerm: "Had", thCoeff: "Koeffitsient", thSize: "O'lcham",
+                error: "Ifodani to'g'ri kiriting! Masalan: (a+b+c)^2 yoki (x+2y-z)^3"
+            },
+            en: {
+                subtitle: "Algebra & Geometry Synthesis",
+                titleInput: "Enter Expression",
+                btnCalc: "Calculate & Visualize",
+                txtTemplates: "Templates:",
+                titleFormula: " Formula Expansion",
+                btnSimp: "Simplified",
+                btnDet: "Detailed",
+                titleSliders: "Adjust Term Sizes",
+                noVars: "Variable sliders will appear here after you enter an expression.",
+                titleSettings: "Camera & Visual Settings",
+                lblExplode: "Gap between blocks",
+                lblRotY: "Rotate around Y-axis",
+                lblTilt: "Height tilt",
+                lblZoom: "Zoom",
+                resetTxt: "Reset view",
+                titleCanvas: "Geometric Model",
+                titleDetails: "Terms Table",
+                thColor: "Color", thTerm: "Term", thCoeff: "Coefficient", thSize: "Size",
+                error: "Please enter a valid expression! E.g.: (a+b+c)^2 or (x+2y-z)^3"
+            }
+        };
+
+        // ==================== TEMPLATES ====================
+        const TEMPLATES = [
+            { label: "(a+b)²", expr: "(a+b)^2" },
+            { label: "(a+b+c)²", expr: "(a+b+c)^2" },
+            { label: "(a-b)²", expr: "(a-b)^2" },
+            { label: "(a+b)³", expr: "(a+b)^3" },
+            { label: "(a+b+c)³", expr: "(a+b+c)^3" },
+            { label: "(x-y)³", expr: "(x-y)^3" },
+            { label: "(x+2y)²", expr: "(x+2y)^2" },
+            { label: "(2a+3b)²", expr: "(2a+3b)^2" }
+        ];
+
+        // ==================== DOM REFS ====================
+        const $ = id => document.getElementById(id);
+
+        // ==================== INIT ====================
+        window.addEventListener('DOMContentLoaded', () => {
+            initTemplates();
+            initEventListeners();
+        });
+
+        function initTemplates() {
+            const list = $('templates-list');
+            list.innerHTML = '';
+            TEMPLATES.forEach((t, i) => {
+                const chip = document.createElement('div');
+                chip.className = 'template-chip';
+                chip.textContent = t.label;
+                chip.onclick = () => {
+                    $('expression').value = t.expr;
+                    document.querySelectorAll('.template-chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    calculate();
+                };
+                list.appendChild(chip);
+            });
+        }
+
+        function initEventListeners() {
+            $('calc-btn').onclick = calculate;
+            $('expression').addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); });
+
+            // Theme toggle
+            $('theme-toggle').onclick = () => {
+                const html = document.documentElement;
+                const isDark = html.getAttribute('data-theme') === 'dark';
+                html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+                $('theme-toggle').innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+            };
+
+            // Language switch
+            $('lang-select').onchange = () => {
+                applyLanguage($('lang-select').value);
+            };
+
+            // Formula mode buttons
+            $('btn-mode-simp').onclick = () => { formulaMode = 'simple'; toggleModeBtn(); renderFormula(); };
+            $('btn-mode-det').onclick = () => { formulaMode = 'detail'; toggleModeBtn(); renderFormula(); };
+
+            // Camera controls
+            $('control-explode').oninput = function () { $('val-explode').textContent = this.value + 'px'; renderVisualization(); };
+            $('control-rot-y').oninput = function () { $('val-rot-y').textContent = this.value + '°'; renderVisualization(); };
+            $('control-tilt').oninput = function () { $('val-tilt').textContent = this.value + '°'; renderVisualization(); };
+            $('control-zoom').oninput = function () { $('val-zoom').textContent = this.value + '%'; renderVisualization(); };
+
+            // Reset
+            $('reset-view-btn').onclick = resetView;
+
+            // Auto rotate
+            $('btn-auto-rotate').onclick = toggleAutoRotate;
+
+            // Download SVG
+            $('download-svg').onclick = downloadSVG;
+
+            // Mouse drag on viewport
+            const vp = $('visual-viewport');
+            vp.addEventListener('mousedown', onDragStart);
+            window.addEventListener('mousemove', onDragMove);
+            window.addEventListener('mouseup', onDragEnd);
+            // Touch support
+            vp.addEventListener('touchstart', e => { e.preventDefault(); onDragStart(e.touches[0]); }, { passive: false });
+            window.addEventListener('touchmove', e => { onDragMove(e.touches[0]); }, { passive: false });
+            window.addEventListener('touchend', onDragEnd);
+        }
+
+        // ==================== LANGUAGE ====================
+        function applyLanguage(lang) {
+            const L = LANG[lang] || LANG.uz;
+            $('txt-subtitle').textContent = L.subtitle;
+            $('title-input').textContent = L.titleInput;
+            $('btn-calc').textContent = L.btnCalc;
+            $('txt-templates').textContent = L.txtTemplates;
+            $('title-formula').textContent = L.titleFormula;
+            $('btn-mode-simp').textContent = L.btnSimp;
+            $('btn-mode-det').textContent = L.btnDet;
+            $('title-sliders').textContent = L.titleSliders;
+            $('txt-no-vars') && ($('txt-no-vars').textContent = L.noVars);
+            $('title-settings').textContent = L.titleSettings;
+            $('lbl-explode').textContent = L.lblExplode;
+            $('lbl-rot-y').textContent = L.lblRotY;
+            $('lbl-tilt').textContent = L.lblTilt;
+            $('lbl-zoom').textContent = L.lblZoom;
+            $('reset-txt').textContent = L.resetTxt;
+            $('title-canvas').textContent = L.titleCanvas;
+            $('title-details').textContent = L.titleDetails;
+            $('th-color').textContent = L.thColor;
+            $('th-term').textContent = L.thTerm;
+            $('th-coeff').textContent = L.thCoeff;
+            $('th-size').textContent = L.thSize;
+            $('txt-error').textContent = L.error;
+        }
+
+        function toggleModeBtn() {
+            $('btn-mode-simp').classList.toggle('active', formulaMode === 'simple');
+            $('btn-mode-det').classList.toggle('active', formulaMode === 'detail');
+        }
+
+        // ==================== EXPRESSION PARSER ====================
+        function parseExpression(raw) {
+            raw = raw.trim();
+            // Match pattern: (terms)^n
+            const match = raw.match(/^\(([^)]+)\)\^(\d+)$/);
+            if (!match) return null;
+            const inside = match[1];
+            const degree = parseInt(match[2]);
+            if (degree < 2 || degree > 3) return null;
+
+            // Parse terms inside parentheses
+            const terms = [];
+            // Split by + or - but keep the sign
+            const parts = inside.match(/[+-]?[^+-]+/g);
+            if (!parts) return null;
+
+            for (let p of parts) {
+                p = p.trim();
+                if (!p) continue;
+                let sign = 1;
+                if (p.startsWith('-')) { sign = -1; p = p.substring(1).trim(); }
+                else if (p.startsWith('+')) { p = p.substring(1).trim(); }
+
+                // Parse coefficient and variable
+                const m = p.match(/^(\d*)([a-zA-Z]?)$/);
+                if (!m) return null;
+                let coeff = m[1] ? parseInt(m[1]) : 1;
+                coeff *= sign;
+                const varName = m[2] || null;
+                terms.push({ coeff, varName });
+            }
+
+            return { terms, degree };
+        }
+
+        // ==================== EXPAND EXPRESSION ====================
+        function expandDeg2(terms) {
+            const result = [];
+            for (let i = 0; i < terms.length; i++) {
+                for (let j = i; j < terms.length; j++) {
+                    const a = terms[i], b = terms[j];
+                    const coeff = (i === j) ? a.coeff * b.coeff : 2 * a.coeff * b.coeff;
+                    const vars = {};
+                    if (a.varName) vars[a.varName] = (vars[a.varName] || 0) + 1;
+                    if (b.varName) vars[b.varName] = (vars[b.varName] || 0) + 1;
+                    // For i === j, it's a^2 (exponent=2), for cross terms ab (exponent=1 each)
+                    if (i === j && a.varName) vars[a.varName] = 2;
+                    result.push({ coeff, vars, termIdx: [i, j] });
+                }
+            }
+            return result;
+        }
+
+        function expandDeg3(terms) {
+            const result = [];
+            // Use multinomial expansion: sum of (n! / (k1!k2!...)) * prod(a_i^k_i) for k1+k2+...=3
+            const n = terms.length;
+            // Generate all combinations with replacement of size 3
+            function combos(start, remaining, chosen) {
+                if (remaining === 0) {
+                    // Count occurrences of each index
+                    const counts = {};
+                    chosen.forEach(c => counts[c] = (counts[c] || 0) + 1);
+                    // Multinomial coefficient: 3! / prod(k_i!)
+                    let multinomial = 6; // 3!
+                    Object.values(counts).forEach(k => {
+                        if (k === 2) multinomial /= 2;
+                        if (k === 3) multinomial /= 6;
+                    });
+                    // Coefficient
+                    let coeff = multinomial;
+                    const vars = {};
+                    chosen.forEach(idx => {
+                        const t = terms[idx];
+                        coeff *= t.coeff;
+                        if (t.varName) vars[t.varName] = (vars[t.varName] || 0) + 1;
+                    });
+                    result.push({ coeff, vars, termIdx: chosen.slice() });
+                    return;
+                }
+                for (let i = start; i < n; i++) {
+                    chosen.push(i);
+                    combos(i, remaining - 1, chosen);
+                    chosen.pop();
+                }
+            }
+            combos(0, 3, []);
+            return result;
+        }
+
+        function expandExpression(parsed) {
+            if (parsed.degree === 2) return expandDeg2(parsed.terms);
+            if (parsed.degree === 3) return expandDeg3(parsed.terms);
+            return [];
+        }
+
+        // ==================== FORMAT TERM ====================
+        function formatTermLatex(term) {
+            let s = '';
+            const absCoeff = Math.abs(term.coeff);
+            if (absCoeff !== 1 || Object.keys(term.vars).length === 0) s += absCoeff;
+            const sign = term.coeff < 0 ? '-' : '+';
+            const varParts = Object.entries(term.vars).map(([v, exp]) => exp > 1 ? `${v}^{${exp}}` : v).join('');
+            s += varParts;
+            return { sign, body: s };
+        }
+
+        function formatTermText(term) {
+            let s = '';
+            const absCoeff = Math.abs(term.coeff);
+            if (absCoeff !== 1 || Object.keys(term.vars).length === 0) s += absCoeff;
+            const sign = term.coeff < 0 ? '-' : '+';
+            const varParts = Object.entries(term.vars).map(([v, exp]) => exp > 1 ? `${v}²` : v).join('');
+            s += varParts;
+            return sign + ' ' + s;
+        }
+
+        // ==================== CALCULATE ====================
+        function calculate() {
+            const raw = $('expression').value.trim();
+            const parsed = parseExpression(raw);
+
+            if (!parsed) {
+                $('error-msg').style.display = 'flex';
+                return;
+            }
+            $('error-msg').style.display = 'none';
+
+            currentDegree = parsed.degree;
+            currentParsedTerms = parsed.terms;
+
+            // Assign colors to variables
+            const varNames = [...new Set(parsed.terms.filter(t => t.varName).map(t => t.varName))];
+            currentVars = {};
+            varNames.forEach((v, i) => {
+                currentVars[v] = { value: 1, color: VAR_COLORS[i % VAR_COLORS.length] };
+            });
+
+            // Expand
+            currentTerms = expandExpression(parsed);
+
+            // Assign color to each term based on its variable composition
+            currentTerms.forEach((term, i) => {
+                const vKeys = Object.keys(term.vars);
+                if (vKeys.length === 1) {
+                    term.color = currentVars[vKeys[0]]?.color || VAR_COLORS[0];
+                } else if (vKeys.length >= 2) {
+                    // Mix colors for cross terms
+                    term.color = blendColors(vKeys.map(v => currentVars[v]?.color || '#888'));
+                } else {
+                    term.color = '#888';
+                }
+            });
+
+            // Show 3D controls if degree 3
+            $('row-explode').style.display = '';
+            $('row-rot-y').style.display = currentDegree === 3 ? '' : 'none';
+            $('row-tilt').style.display = currentDegree === 3 ? '' : 'none';
+            $('btn-auto-rotate').style.display = currentDegree === 3 ? '' : 'none';
+            if (currentDegree === 2) {
+                stopAutoRotate();
+            }
+
+            buildVariableSliders(varNames);
+            renderFormula();
+            renderVisualization();
+            renderTable();
+        }
+
+        function blendColors(colors) {
+            let r = 0, g = 0, b = 0;
+            colors.forEach(c => {
+                const parsed = hexToRgb(c);
+                r += parsed.r; g += parsed.g; b += parsed.b;
+            });
+            r = Math.round(r / colors.length);
+            g = Math.round(g / colors.length);
+            b = Math.round(b / colors.length);
+            return `rgb(${r},${g},${b})`;
+        }
+
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '');
+            return {
+                r: parseInt(hex.substring(0, 2), 16),
+                g: parseInt(hex.substring(2, 4), 16),
+                b: parseInt(hex.substring(4, 6), 16)
+            };
+        }
+
+        // ==================== VARIABLE SLIDERS ====================
+        function buildVariableSliders(varNames) {
+            const container = $('variables-list');
+            container.innerHTML = '';
+            if (varNames.length === 0) {
+                container.innerHTML = `<div style="color: var(--text-secondary); text-align: center; padding: 20px 0;" id="txt-no-vars">Ifoda kiritilgandan so'ng o'zgaruvchi slaydderlari bu yerda ko'rinadi.</div>`;
+                return;
+            }
+
+            varNames.forEach(v => {
+                const row = document.createElement('div');
+                row.className = 'variable-row';
+                row.innerHTML = `
+                    <div class="variable-info">
+                        <div class="variable-badge">
+                            <span class="color-indicator" style="background: ${currentVars[v].color}"></span>
+                            <span>${v}</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span class="var-val" data-var="${v}">${currentVars[v].value}</span>
+                            <div class="color-picker-wrapper">
+                                <input type="color" class="color-input" value="${currentVars[v].color}" data-var="${v}">
+                                <div class="color-btn" style="background: ${currentVars[v].color}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="range" min="1" max="5" step="0.5" value="${currentVars[v].value}" data-var="${v}" class="var-slider">
+                `;
+                container.appendChild(row);
+
+                row.querySelector('.var-slider').oninput = function () {
+                    currentVars[this.dataset.var].value = parseFloat(this.value);
+                    row.querySelector('.var-val').textContent = this.value;
+                    renderVisualization();
+                    renderTable();
+                };
+
+                row.querySelector('.color-input').oninput = function () {
+                    currentVars[this.dataset.var].color = this.value;
+                    row.querySelector('.color-indicator').style.background = this.value;
+                    row.querySelector('.color-btn').style.background = this.value;
+                    // Recalculate term colors
+                    currentTerms.forEach(term => {
+                        const vKeys = Object.keys(term.vars);
+                        if (vKeys.length === 1) {
+                            term.color = currentVars[vKeys[0]]?.color || VAR_COLORS[0];
+                        } else if (vKeys.length >= 2) {
+                            term.color = blendColors(vKeys.map(vk => currentVars[vk]?.color || '#888'));
+                        }
+                    });
+                    renderVisualization();
+                    renderTable();
+                };
+            });
+        }
+
+        // ==================== FORMULA RENDERING ====================
+        function renderFormula() {
+            const display = $('formula-display');
+            if (currentTerms.length === 0) {
+                display.innerHTML = '<span style="color: var(--text-secondary)">—</span>';
+                return;
+            }
+
+            const raw = $('expression').value.trim();
+            let latex = '';
+
+            if (formulaMode === 'simple') {
+                latex = raw.replace(/\^(\d+)/g, '^{$1}') + ' = ';
+                currentTerms.forEach((term, i) => {
+                    const f = formatTermLatex(term);
+                    if (i === 0) {
+                        latex += (f.sign === '-' ? '-' : '') + f.body;
+                    } else {
+                        latex += ' ' + f.sign + ' ' + f.body;
+                    }
+                });
+            } else {
+                // Detailed: show step by step
+                latex = raw.replace(/\^(\d+)/g, '^{$1}') + ' = ';
+                if (currentDegree === 2) {
+                    // Show as (a+b+c)(a+b+c) then expansion
+                    const inner = raw.match(/^\(([^)]+)\)/)[1];
+                    latex += `(${inner})(${inner}) = `;
+                } else {
+                    const inner = raw.match(/^\(([^)]+)\)/)[1];
+                    latex += `(${inner})(${inner})(${inner}) = `;
+                }
+                currentTerms.forEach((term, i) => {
+                    const f = formatTermLatex(term);
+                    if (i === 0) {
+                        latex += (f.sign === '-' ? '-' : '') + f.body;
+                    } else {
+                        latex += ' ' + f.sign + ' ' + f.body;
+                    }
+                });
+            }
+
+            try {
+                katex.render(latex, display, { displayMode: true, throwOnError: false });
+            } catch (e) {
+                display.textContent = latex;
+            }
+        }
+
+        // ==================== RENDERING HELPERS ====================
+        function getBlockText(termsArr) {
+            let c = 1;
+            let vars = [];
+            termsArr.forEach(t => {
+                if (!t) return;
+                c *= t.coeff;
+                if (t.varName) vars.push(t.varName);
+            });
+            c = Math.abs(c);
+            vars.sort(); // sort alphabetically e.g. b, a -> a, b
+            let counts = {};
+            vars.forEach(v => counts[v] = (counts[v] || 0) + 1);
+            let varStr = Object.entries(counts).map(([v, exp]) => exp > 1 ? `${v}${exp === 2 ? '²' : '³'}` : v).join('');
+            if (c === 1 && varStr !== "") c = "";
+            return c + varStr;
+        }
+
+        // ==================== TERM LABEL (signed, for headers and cells) ====================
+        function getTermLabel(t) {
+            // Returns signed label like "a", "-b", "2c", "-3d"
+            let s = '';
+            const absC = Math.abs(t.coeff);
+            const sign = t.coeff < 0 ? '-' : '';
+            if (t.varName) {
+                s = sign + (absC !== 1 ? absC : '') + t.varName;
+            } else {
+                s = sign + absC;
+            }
+            return s;
+        }
+
+        function getCellLabel(ti, tj) {
+            // Product of two terms with correct sign, e.g. a*(-b) = -ab
+            const coeff = ti.coeff * tj.coeff;
+            const absC = Math.abs(coeff);
+            const sign = coeff < 0 ? '-' : '';
+            // variables
+            const vars = {};
+            if (ti.varName) vars[ti.varName] = (vars[ti.varName] || 0) + 1;
+            if (tj.varName) vars[tj.varName] = (vars[tj.varName] || 0) + 1;
+            let varStr = Object.entries(vars).map(([v, e]) => e > 1 ? v + (e === 2 ? '\u00B2' : '\u00B3') : v).join('');
+            if (!varStr) return sign + absC;
+            if (absC === 1) return sign + varStr;
+            return sign + absC + varStr;
+        }
+
+        function getCellLabel3(ti, tj, tk) {
+            const coeff = ti.coeff * tj.coeff * tk.coeff;
+            const absC = Math.abs(coeff);
+            const sign = coeff < 0 ? '-' : '';
+            const vars = {};
+            [ti, tj, tk].forEach(t => { if (t.varName) vars[t.varName] = (vars[t.varName] || 0) + 1; });
+            let varStr = Object.entries(vars).map(([v, e]) => e > 1 ? v + (e === 2 ? '\u00B2' : '\u00B3') : v).join('');
+            if (!varStr) return sign + absC;
+            if (absC === 1) return sign + varStr;
+            return sign + absC + varStr;
+        }
+
+        // ==================== 2D VISUALIZATION (degree 2) ====================
+        function render2D() {
+            const container = $('svg-container');
+            const zoom = parseInt($('control-zoom').value) / 100;
+            const explode = parseInt($('control-explode').value);
+            const baseUnit = 70;
+            const headerSize = 36; // space for row/col headers
+
+            const n = currentParsedTerms.length;
+            const termSizes = currentParsedTerms.map(t => Math.abs(t.coeff) * (t.varName ? (currentVars[t.varName]?.value || 1) : 1) * baseUnit);
+
+            const sumSizes = termSizes.reduce((a, b) => a + b, 0);
+            const sumExplode = explode * (n - 1);
+            const totalDim = sumSizes + sumExplode;
+
+            const pad = 20;
+            const svgW = (totalDim + headerSize + pad * 2) * zoom;
+            const svgH = (totalDim + headerSize + pad * 2) * zoom;
+            const vw = totalDim + headerSize + pad * 2;
+            const vh = totalDim + headerSize + pad * 2;
+
+            let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vw} ${vh}" width="${svgW}" height="${svgH}" style="max-width:100%;max-height:100%;">`;
+
+            // Column headers (top)
+            let cx = pad + headerSize;
+            for (let j = 0; j < n; j++) {
+                const w = termSizes[j];
+                const lbl = getTermLabel(currentParsedTerms[j]);
+                svg += `<text x="${cx + w/2}" y="${pad + headerSize/2}" text-anchor="middle" dominant-baseline="central"
+                    font-size="15" font-weight="700" fill="var(--text-primary, #1e293b)" font-family="Outfit, sans-serif">${lbl}</text>`;
+                cx += w + explode;
+            }
+
+            let ry = pad + headerSize;
+            for (let i = 0; i < n; i++) {
+                const h = termSizes[i];
+                // Row header (left)
+                const lbl = getTermLabel(currentParsedTerms[i]);
+                svg += `<text x="${pad + headerSize/2}" y="${ry + h/2}" text-anchor="middle" dominant-baseline="central"
+                    font-size="15" font-weight="700" fill="var(--text-primary, #1e293b)" font-family="Outfit, sans-serif">${lbl}</text>`;
+
+                let rx = pad + headerSize;
+                for (let j = 0; j < n; j++) {
+                    const w = termSizes[j];
+
+                    const sorted = [i, j].sort((a, b) => a - b);
+                    const groupedIdx = currentTerms.findIndex(t => {
+                        const ti = [...t.termIdx].sort((a, b) => a - b);
+                        return ti.length === sorted.length && ti.every((v, x) => v === sorted[x]);
+                    });
+                    const groupedTerm = currentTerms[groupedIdx];
+
+                    const fill = groupedTerm ? groupedTerm.color : '#888';
+                    const lighter = lighten(fill, 0.18);
+
+                    svg += `<rect data-idx="${groupedIdx}" x="${rx}" y="${ry}" width="${w}" height="${h}" rx="5"
+                        fill="${lighter}" stroke="${fill}" stroke-width="1.8"
+                        onmouseover="highlightTerm(${groupedIdx})" onmouseout="unhighlightAll()" />`;
+
+                    const cellLabel = getCellLabel(currentParsedTerms[i], currentParsedTerms[j]);
+                    const fontSize = Math.min(16, Math.max(10, Math.min(w, h) / 3.5));
+                    svg += `<text x="${rx + w/2}" y="${ry + h/2}" text-anchor="middle" dominant-baseline="central"
+                        font-size="${fontSize}" font-weight="700" fill="${fill}" font-family="Outfit, sans-serif" pointer-events="none">${cellLabel}</text>`;
+
+                    rx += w + explode;
+                }
+                ry += h + explode;
+            }
+
+            svg += '</svg>';
+            container.innerHTML = svg;
+        }
+
+        // ==================== 3D VISUALIZATION (degree 3) ====================
+        function render3D() {
+            const container = $('svg-container');
+            const zoom = parseInt($('control-zoom').value) / 100;
+            const explode = parseInt($('control-explode').value);
+            const rotY = parseInt($('control-rot-y').value);
+            const tilt = parseInt($('control-tilt').value);
+            const baseUnit = 50;
+
+            const cosA = Math.cos(rotY * Math.PI / 180);
+            const sinA = Math.sin(rotY * Math.PI / 180);
+            const cosB = Math.cos(tilt * Math.PI / 180);
+            const sinB = Math.sin(tilt * Math.PI / 180);
+
+            function project(x, y, z) {
+                const rx = x * cosA - z * sinA;
+                const rz = x * sinA + z * cosA;
+                const ry = y * cosB - rz * sinB;
+                const pz = y * sinB + rz * cosB;
+                return { px: rx, py: -ry, depth: pz };
+            }
+
+            const termSizes = currentParsedTerms.map(t => Math.abs(t.coeff) * (t.varName ? (currentVars[t.varName]?.value || 1) : 1) * baseUnit);
+            const totalDim = termSizes.reduce((s, a) => s + a, 0) + explode * (termSizes.length - 1);
+
+            // To center the cube around its rotation axis
+            const offsetC = -totalDim / 2;
+
+            const cubes = [];
+
+            let ox = offsetC;
+            for (let i = 0; i < currentParsedTerms.length; i++) {
+                let w = termSizes[i];
+                let oy = offsetC;
+                for (let j = 0; j < currentParsedTerms.length; j++) {
+                    let h = termSizes[j];
+                    let oz = offsetC;
+                    for (let k = 0; k < currentParsedTerms.length; k++) {
+                        let d = termSizes[k];
+
+                        const sorted3 = [i, j, k].sort((a, b) => a - b);
+                        const groupedIdx = currentTerms.findIndex(t => {
+                            const ti = [...t.termIdx].sort((a, b) => a - b);
+                            return ti.length === sorted3.length && ti.every((v, x) => v === sorted3[x]);
+                        });
+                        const groupedTerm = currentTerms[groupedIdx];
+                        const color = groupedTerm ? groupedTerm.color : '#888';
+                        const blockText = getCellLabel3(currentParsedTerms[i], currentParsedTerms[j], currentParsedTerms[k]);
+
+                        const verts = [
+                            [ox, oy, oz], [ox + w, oy, oz], [ox + w, oy + h, oz], [ox, oy + h, oz],
+                            [ox, oy, oz + d], [ox + w, oy, oz + d], [ox + w, oy + h, oz + d], [ox, oy + h, oz + d]
+                        ];
+
+                        const projected = verts.map(([x, y, z]) => project(x, y, z));
+                        const centerDepth = projected.reduce((s, p) => s + p.depth, 0) / 8;
+
+                        const faces = [
+                            { idx: [0, 1, 2, 3], name: 'front', light: 1.0 },
+                            { idx: [5, 4, 7, 6], name: 'back', light: 0.6 },
+                            { idx: [4, 0, 3, 7], name: 'left', light: 0.75 },
+                            { idx: [1, 5, 6, 2], name: 'right', light: 0.85 },
+                            { idx: [4, 5, 1, 0], name: 'bottom', light: 0.65 },
+                            { idx: [3, 2, 6, 7], name: 'top', light: 0.95 }
+                        ];
+
+                        faces.forEach(face => {
+                            const pts = face.idx.map(ii => projected[ii]);
+                            face.depth = pts.reduce((s, p) => s + p.depth, 0) / 4;
+                            face.points = pts;
+                            face.color = color;
+                            face.termIdx = groupedIdx;
+                            face.blockText = blockText;
+                            face.area = w * h + h * d + w * d; // rough relative area sizes
+                        });
+
+                        cubes.push({ faces, centerDepth });
+
+                        oz += d + explode;
+                    }
+                    oy += h + explode;
+                }
+                ox += w + explode;
+            }
+
+            // Flatten all faces and sort by depth (painter's algorithm)
+            const allFaces = [];
+            cubes.forEach(cube => cube.faces.forEach(f => allFaces.push(f)));
+            allFaces.sort((a, b) => a.depth - b.depth);
+
+            // Find bounds
+            let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+            allFaces.forEach(f => f.points.forEach(p => {
+                minX = Math.min(minX, p.px); maxX = Math.max(maxX, p.px);
+                minY = Math.min(minY, p.py); maxY = Math.max(maxY, p.py);
+            }));
+
+            const pad = 60;
+            const vw = (maxX - minX + pad * 2);
+            const vh = (maxY - minY + pad * 2);
+            const svgW = vw * zoom;
+            const svgH = vh * zoom;
+            const offX = -minX + pad;
+            const offY = -minY + pad;
+
+            let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${vw} ${vh}" width="${svgW}" height="${svgH}" style="max-width:100%;max-height:100%;">`;
+
+            allFaces.forEach(face => {
+                const pts = face.points.map(p => `${(p.px + offX).toFixed(1)},${(p.py + offY).toFixed(1)}`).join(' ');
+                const fillColor = adjustBrightness(face.color, face.light);
+                svg += `<polygon data-idx="${face.termIdx}" points="${pts}"
+                    fill="${fillColor}" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"
+                    onmouseover="highlightTerm(${face.termIdx})" onmouseout="unhighlightAll()" />`;
+
+                // Calculate if face is pointing towards viewer using cross product manually
+                const p0 = face.points[0], p1 = face.points[1], p2 = face.points[2];
+                // In svg, +y is down. Vertices are defined clockwise from outside.
+                const cross = (p1.px - p0.px) * (p2.py - p0.py) - (p1.py - p0.py) * (p2.px - p0.px);
+
+                // If cross > 5, face is large enough and heavily pointing towards out screen.
+                // We show text on front, top, right if they're visible.
+                if (cross > 50 && ['front', 'top', 'right'].includes(face.name)) {
+                    let cx = face.points.reduce((s, p) => s + p.px, 0) / 4 + offX;
+                    let cy = face.points.reduce((s, p) => s + p.py, 0) / 4 + offY;
+                    let fontSize = face.area > 50000 ? 15 : (face.area > 20000 ? 12 : 10);
+                    // Add text
+                    svg += `<text x="${cx}" y="${cy}" text-anchor="middle" dominant-baseline="central"
+                        font-size="${fontSize}" font-weight="700" fill="rgba(255,255,255,0.9)" pointer-events="none" 
+                        font-family="Outfit, sans-serif" filter="drop-shadow(0px 1px 2px rgba(0,0,0,0.3))">${face.blockText}</text>`;
+                }
+            });
+
+            svg += '</svg>';
+            container.innerHTML = svg;
+        }
+
+        function adjustBrightness(color, factor) {
+            let r, g, b;
+            if (color.startsWith('#')) {
+                const rgb = hexToRgb(color);
+                r = rgb.r; g = rgb.g; b = rgb.b;
+            } else if (color.startsWith('rgb')) {
+                const m = color.match(/(\d+)/g);
+                r = parseInt(m[0]); g = parseInt(m[1]); b = parseInt(m[2]);
+            } else return color;
+
+            r = Math.min(255, Math.round(r * factor));
+            g = Math.min(255, Math.round(g * factor));
+            b = Math.min(255, Math.round(b * factor));
+            return `rgb(${r},${g},${b})`;
+        }
+
+        function lighten(color, amount) {
+            const rgb = hexToRgb(color.startsWith('#') ? color : '#3b82f6');
+            const r = Math.min(255, rgb.r + Math.round(255 * amount));
+            const g = Math.min(255, rgb.g + Math.round(255 * amount));
+            const b = Math.min(255, rgb.b + Math.round(255 * amount));
+            return `rgb(${r},${g},${b})`;
+        }
+
+        // ==================== RENDER DISPATCHER ====================
+        function renderVisualization() {
+            if (currentTerms.length === 0) return;
+            if (currentDegree === 2) render2D();
+            else render3D();
+        }
+
+        // ==================== TABLE ====================
+        function renderTable() {
+            const tbody = $('details-body');
+            tbody.innerHTML = '';
+            currentTerms.forEach((term, i) => {
+                const tr = document.createElement('tr');
+                tr.dataset.idx = i;
+
+                const fText = formatTermText(term).trim();
+                const absCoeff = Math.abs(term.coeff);
+                const vKeys = Object.keys(term.vars);
+                let sizeText = '';
+                if (currentDegree === 2) {
+                    if (vKeys.length === 1) {
+                        const v = vKeys[0];
+                        sizeText = `${currentVars[v]?.value || 1} × ${currentVars[v]?.value || 1}`;
+                    } else if (vKeys.length === 2) {
+                        const [v1, v2] = vKeys;
+                        sizeText = `${currentVars[v1]?.value || 1} × ${currentVars[v2]?.value || 1}`;
+                    } else {
+                        sizeText = `${absCoeff}`;
+                    }
+                } else {
+                    sizeText = vKeys.map(v => currentVars[v]?.value || 1).join(' × ') || `${absCoeff}`;
+                }
+
+                tr.innerHTML = `
+                    <td><span class="block-color" style="background:${term.color}"></span></td>
+                    <td>${fText}</td>
+                    <td>${absCoeff}</td>
+                    <td>${sizeText}</td>
+                `;
+                tr.onmouseover = () => highlightTerm(i);
+                tr.onmouseout = () => unhighlightAll();
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ==================== HIGHLIGHT ====================
+        function highlightTerm(idx) {
+            // Highlight SVG elements
+            document.querySelectorAll('#svg-container [data-idx]').forEach(el => {
+                if (parseInt(el.dataset.idx) === idx) {
+                    el.classList.add('svg-highlight');
+                    el.classList.remove('svg-muted');
+                } else {
+                    el.classList.remove('svg-highlight');
+                    el.classList.add('svg-muted');
+                }
+            });
+            // Highlight table rows
+            document.querySelectorAll('#details-body tr').forEach(tr => {
+                if (parseInt(tr.dataset.idx) === idx) {
+                    tr.classList.add('highlighted');
+                } else {
+                    tr.classList.remove('highlighted');
+                }
+            });
+        }
+
+        function unhighlightAll() {
+            document.querySelectorAll('#svg-container [data-idx]').forEach(el => {
+                el.classList.remove('svg-highlight', 'svg-muted');
+            });
+            document.querySelectorAll('#details-body tr').forEach(tr => {
+                tr.classList.remove('highlighted');
+            });
+        }
+
+        // ==================== DRAG ROTATION ====================
+        function onDragStart(e) {
+            if (currentDegree !== 3) return;
+            isDragging = true;
+            dragStartX = e.clientX || e.pageX;
+            dragStartY = e.clientY || e.pageY;
+            dragStartRotY = parseInt($('control-rot-y').value);
+            dragStartTilt = parseInt($('control-tilt').value);
+        }
+
+        function onDragMove(e) {
+            if (!isDragging) return;
+            const dx = (e.clientX || e.pageX) - dragStartX;
+            const dy = (e.clientY || e.pageY) - dragStartY;
+            let newRotY = (dragStartRotY + dx * 0.5) % 360;
+            if (newRotY < 0) newRotY += 360;
+            let newTilt = Math.max(0, Math.min(85, dragStartTilt + dy * 0.3));
+            $('control-rot-y').value = Math.round(newRotY);
+            $('control-tilt').value = Math.round(newTilt);
+            $('val-rot-y').textContent = Math.round(newRotY) + '°';
+            $('val-tilt').textContent = Math.round(newTilt) + '°';
+            renderVisualization();
+        }
+
+        function onDragEnd() {
+            isDragging = false;
+        }
+
+        // ==================== AUTO ROTATE ====================
+        function toggleAutoRotate() {
+            autoRotate = !autoRotate;
+            $('auto-rotate-badge').classList.toggle('active', autoRotate);
+            if (autoRotate) {
+                startAutoRotate();
+            } else {
+                stopAutoRotate();
+            }
+        }
+
+        function startAutoRotate() {
+            function step() {
+                if (!autoRotate) return;
+                let val = (parseInt($('control-rot-y').value) + 1) % 360;
+                $('control-rot-y').value = val;
+                $('val-rot-y').textContent = val + '°';
+                renderVisualization();
+                autoRotateRAF = requestAnimationFrame(step);
+            }
+            autoRotateRAF = requestAnimationFrame(step);
+        }
+
+        function stopAutoRotate() {
+            autoRotate = false;
+            $('auto-rotate-badge').classList.remove('active');
+            if (autoRotateRAF) cancelAnimationFrame(autoRotateRAF);
+        }
+
+        // ==================== RESET VIEW ====================
+        function resetView() {
+            $('control-explode').value = 0; $('val-explode').textContent = '0px';
+            $('control-rot-y').value = 45; $('val-rot-y').textContent = '45°';
+            $('control-tilt').value = 30; $('val-tilt').textContent = '30°';
+            $('control-zoom').value = 100; $('val-zoom').textContent = '100%';
+            stopAutoRotate();
+            renderVisualization();
+        }
+
+        // ==================== DOWNLOAD SVG ====================
+        function downloadSVG() {
+            const svgEl = document.querySelector('#svg-container svg');
+            if (!svgEl) return;
+            const data = new XMLSerializer().serializeToString(svgEl);
+            const blob = new Blob([data], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'algebratex.svg';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+
+</body>
+
+</html>
